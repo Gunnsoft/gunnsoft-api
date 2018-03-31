@@ -4,6 +4,24 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Title>Gunnsoft.Api</Title>
+    <AssemblyName>Gunnsoft.Api</AssemblyName>
+    <PackageId>Gunnsoft.Api</PackageId>
+    <Authors>Andrew Gunn</Authors>
+    <Company>Gunnsoft</Company>
+    <AssemblyTitle>Gunnsoft.Api</AssemblyTitle>
+    <Description>
+      Gunnsoft API
+    </Description>
+    <Copyright>Copyright © Gunnsoft 2018</Copyright>
+    <PackageTags>Gunnsoft;API</PackageTags>
+    <PackageProjectUrl>https://github.com/Gunnsoft/gunnsoft-api</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Gunnsoft/gunnsoft-api</RepositoryUrl>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="FluentValidation" Version="7.5.2" />

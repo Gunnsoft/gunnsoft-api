@@ -15,7 +15,7 @@
       Gunnsoft API
     </Description>
     <Copyright>Copyright © Gunnsoft 2018</Copyright>
-    <PackageTags>Gunnsoft;API</PackageTags>
+    <PackageTags>Gunnsoft;AspNetCore;API</PackageTags>
     <PackageProjectUrl>https://github.com/Gunnsoft/gunnsoft-api</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>

@@ -16,24 +16,34 @@ namespace Gunnsoft.Api.Filters
             }
 
             var validationErrors = context.ModelState
-                .Where(ms => ms.Value.Errors.Any(e => !string.IsNullOrWhiteSpace(e.ErrorMessage)))
-                .Select(kvp => new ValidationError(kvp.Key, kvp.Value.Errors.Select(e => e.ErrorMessage).First()))
+                .SelectMany(kvp => kvp.Value.Errors.Select(e => new ValidationError(kvp.Key, e.ErrorMessage)))
                 .OrderBy(ve => ve.PropertyName)
                 .ToList();
 
             var logger =
-                (ILogger<ValidateModelStateAttribute>) context.HttpContext.RequestServices.GetService(
+                (ILogger<ValidateModelStateAttribute>)context.HttpContext.RequestServices.GetService(
                     typeof(ILogger<ValidateModelStateAttribute>));
-            logger.LogInformation
-            (
-                "ModelState is invalid. {@ValidationErrors}",
-                validationErrors
-            );
+
+            if (validationErrors.Any(ve => string.IsNullOrWhiteSpace(ve.ErrorMessage)))
+            {
+                logger.LogWarning
+                (
+                    "ModelState is invalid but contains an invalid error message. {@ValidationErrors}",
+                    validationErrors
+                );
+            }
+            else
+            {
+                logger.LogInformation
+                (
+                    "ModelState is invalid. {@ValidationErrors}",
+                    validationErrors
+                );
+            }
 
             var response = validationErrors.Any() ? new ValidationFailedResponse(validationErrors) : null;
-            var result = new BadRequestObjectResult(response);
 
-            context.Result = result;
+            context.Result = new BadRequestObjectResult(response);
         }
     }
 }

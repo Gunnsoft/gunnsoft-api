@@ -6,19 +6,18 @@ namespace Gunnsoft.Api.Authentication
 {
     public static class ContainerBuilderExtensions
     {
-        public static ContainerBuilder AddSubAccessor(this ContainerBuilder extended)
+        public static ContainerBuilder AddClaimsSubAccessor(this ContainerBuilder extended)
         {
-            extended.Register<ISubAccessor>(cc =>
-                {
-                    var hostingEnvironment = cc.Resolve<IHostingEnvironment>();
+            extended.RegisterType<ClaimsSubAccessor>()
+                .As<ISubAccessor>()
+                .InstancePerLifetimeScope();
 
-                    if (hostingEnvironment.IsDevelopment())
-                    {
-                        return new HeaderSubAccessor(cc.Resolve<IHttpContextAccessor>());
-                    }
+            return extended;
+        }
 
-                    return new ClaimsSubAccessor(cc.Resolve<IHttpContextAccessor>());
-                })
+        public static ContainerBuilder AddHeadersSubAccessor(this ContainerBuilder extended)
+        {
+            extended.RegisterType<HeaderSubAccessor>()
                 .As<ISubAccessor>()
                 .InstancePerLifetimeScope();
 

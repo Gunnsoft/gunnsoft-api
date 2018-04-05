@@ -14,7 +14,7 @@ namespace Gunnsoft.Api.Middleware.SecureRequests
 
         public async Task Invoke(HttpContext context)
         {
-            if (!context.Request.IsHttps)
+            if (!context.Request.IsHttps && !context.Request.Headers.ContainsKey("X-ARR-SSL"))
             {
                 throw new InsecureRequestException();
             }

@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 
 namespace Gunnsoft.Api.Authentication
 {
@@ -15,7 +13,7 @@ namespace Gunnsoft.Api.Authentication
             return extended;
         }
 
-        public static ContainerBuilder AddHeadersSubAccessor(this ContainerBuilder extended)
+        public static ContainerBuilder AddHeaderSubAccessor(this ContainerBuilder extended)
         {
             extended.RegisterType<HeaderSubAccessor>()
                 .As<ISubAccessor>()

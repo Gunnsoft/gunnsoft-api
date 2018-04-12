@@ -17,6 +17,7 @@ namespace Gunnsoft.Api.Filters
 
             var validationErrors = context.ModelState
                 .SelectMany(kvp => kvp.Value.Errors.Select(e => new ValidationError(kvp.Key, e.ErrorMessage)))
+                .Where(ve => !string.IsNullOrWhiteSpace(ve.ErrorMessage))
                 .OrderBy(ve => ve.PropertyName)
                 .ToList();
 
@@ -24,15 +25,7 @@ namespace Gunnsoft.Api.Filters
                 (ILogger<ValidateModelStateAttribute>)context.HttpContext.RequestServices.GetService(
                     typeof(ILogger<ValidateModelStateAttribute>));
 
-            if (validationErrors.Any(ve => string.IsNullOrWhiteSpace(ve.ErrorMessage)))
-            {
-                logger.LogWarning
-                (
-                    "ModelState is invalid but contains an invalid error message. {@ValidationErrors}",
-                    validationErrors
-                );
-            }
-            else
+            if (validationErrors.Any())
             {
                 logger.LogInformation
                 (

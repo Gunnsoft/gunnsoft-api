@@ -19,14 +19,15 @@ namespace Gunnsoft.Api.Filters
                 .SelectMany(kvp => kvp.Value.Errors.Select(e => new ValidationError(kvp.Key, e.ErrorMessage)))
                 .Where(ve => !string.IsNullOrWhiteSpace(ve.ErrorMessage))
                 .OrderBy(ve => ve.PropertyName)
+                .ThenBy(ve => ve.ErrorMessage)
                 .ToList();
-
-            var logger =
-                (ILogger<ValidateModelStateAttribute>)context.HttpContext.RequestServices.GetService(
-                    typeof(ILogger<ValidateModelStateAttribute>));
 
             if (validationErrors.Any())
             {
+                var logger =
+                    (ILogger<ValidateModelStateAttribute>)context.HttpContext.RequestServices.GetService(
+                        typeof(ILogger<ValidateModelStateAttribute>));
+
                 logger.LogInformation
                 (
                     "ModelState is invalid. {@ValidationErrors}",

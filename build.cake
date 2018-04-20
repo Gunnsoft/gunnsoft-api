@@ -8,53 +8,71 @@ Task("Clean")
     {
         CleanDirectories(artifactsDirectory);
 
-        StartAndReturnProcess("dotnet", new ProcessSettings
-            {
-                Arguments = "clean"
-            })
-            .WaitForExit();
+        var exitCode = StartProcess("dotnet", new ProcessSettings
+        {
+            Arguments = "clean"
+        });
+
+        if (exitCode != 0)
+        {
+            throw new CakeException();
+        }
     });
 
 Task("Restore")
     .IsDependentOn("Clean")
     .Does(() =>
     {
-        DotNetCoreRestore();
+        var exitCode = StartProcess("dotnet", new ProcessSettings
+        {
+            Arguments = "restore"
+        });
+
+        if (exitCode != 0)
+        {
+            throw new CakeException();
+        }
     });
 
 Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
     {
-        StartAndReturnProcess("dotnet", new ProcessSettings
-            {
-                Arguments = $"build --configuration {configuration} --no-restore"
-            })
-            .WaitForExit();
+        var exitCode = StartProcess("dotnet", new ProcessSettings
+        {
+            Arguments = $"build --configuration {configuration} --no-restore"
+        });
+
+        if (exitCode != 0)
+        {
+            throw new CakeException(string.Format(System.Globalization.CultureInfo.InvariantCulture, errorMessage, exitCode));
+        }
     });
 
 Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        foreach (var filePath in GetFiles(@".\test\**\*.csproj")) 
-        { 
-            if (AppVeyor.IsRunningOnAppVeyor)
+        var exitCode = 0;
+
+        if (AppVeyor.IsRunningOnAppVeyor)
+        {
+            exitCode = StartProcess("dotnet", new ProcessSettings
             {
-                StartAndReturnProcess("dotnet", new ProcessSettings
-                    {
-                        Arguments = $"test {filePath} --configuration {configuration} --logger:AppVeyor --no-build --no-restore"
-                    })
-                    .WaitForExit();
-            }
-            else
+                Arguments = $"test --configuration {configuration} --logger:AppVeyor --no-build --no-restore"
+            });
+        }
+        else
+        {
+            exitCode = StartProcess("dotnet", new ProcessSettings
             {
-                StartAndReturnProcess("dotnet", new ProcessSettings
-                    {
-                        Arguments = $"test {filePath} --configuration {configuration} --no-build --no-restore"
-                    })
-                    .WaitForExit();
-            }
+                Arguments = $"test --configuration {configuration} --no-build --no-restore"
+            });
+        }
+
+        if (exitCode != 0)
+        {
+            throw new CakeException(string.Format(System.Globalization.CultureInfo.InvariantCulture, errorMessage, exitCode));
         }
     });
 
@@ -62,11 +80,15 @@ Task("Publish")
     .IsDependentOn("Test")
     .Does(() => 
     {
-        StartAndReturnProcess("dotnet", new ProcessSettings
-            {
-                Arguments = $@"pack src\Gunnsoft.Api --configuration {configuration} --no-restore /p:Version={version}"
-            })
-            .WaitForExit();
+        var exitCode = StartProcess("dotnet", new ProcessSettings
+        {
+            Arguments = $@"publish src\Gunnsoft.Api --configuration {configuration} --no-restore /p:Version={version}"
+        });
+
+        if (exitCode != 0)
+        {
+            throw new CakeException(string.Format(System.Globalization.CultureInfo.InvariantCulture, errorMessage, exitCode));
+        }
     });
 
 Task("Pack")

@@ -86,7 +86,7 @@ Task("Publish")
     {
         var exitCode = StartProcess("dotnet", new ProcessSettings
         {
-            Arguments = $@"publish src\Gunnsoft.Api --configuration {configuration} --no-restore /p:Version={version}"
+            Arguments = $@"pack src\Gunnsoft.Api --configuration {configuration} --no-restore /p:Version={version}"
         });
 
         if (exitCode != 0)

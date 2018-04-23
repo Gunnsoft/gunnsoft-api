@@ -2,6 +2,7 @@ var target = Argument("target", "Default");
 var configuration = Argument("configuration", EnvironmentVariable("CONFIGURATION") ?? "Release");
 var artifactsDirectory = @".\artifacts";
 var version = EnvironmentVariable("APPVEYOR_BUILD_VERSION") ?? "0.0.0";
+const string errorMessage = "Process returned an error (exit code {0}).";
 
 Task("Clean")
     .Does(() =>

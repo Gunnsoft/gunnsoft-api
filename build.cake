@@ -95,7 +95,7 @@ Task("Publish")
         }
     });
 
-Task("Pack")
+Task("Copy")
     .IsDependentOn("Publish")
     .Does(() =>
     {

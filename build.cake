@@ -55,20 +55,23 @@ Task("Test")
     .Does(() =>
     {
         var exitCode = 0;
-
-        if (AppVeyor.IsRunningOnAppVeyor)
-        {
-            exitCode = StartProcess("dotnet", new ProcessSettings
+        
+        foreach (var filePath in GetFiles(@".\test\**\*.csproj")) 
+        { 
+            if (AppVeyor.IsRunningOnAppVeyor)
             {
-                Arguments = $"test --configuration {configuration} --logger:AppVeyor --no-build --no-restore"
-            });
-        }
-        else
-        {
-            exitCode = StartProcess("dotnet", new ProcessSettings
+                exitCode += StartProcess("dotnet", new ProcessSettings
+                {
+                    Arguments = $"test {filePath} --configuration {configuration} --logger:AppVeyor --no-build --no-restore"
+                });
+            }
+            else
             {
-                Arguments = $"test --configuration {configuration} --no-build --no-restore"
-            });
+                exitCode += StartProcess("dotnet", new ProcessSettings
+                {
+                    Arguments = $"test {filePath} --configuration {configuration} --no-build --no-restore"
+                });
+            }
         }
 
         if (exitCode != 0)

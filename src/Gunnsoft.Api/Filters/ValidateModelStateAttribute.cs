@@ -8,7 +8,10 @@ namespace Gunnsoft.Api.Filters
 {
     public class ValidateModelStateAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuting(ActionExecutingContext context)
+        public override void OnActionExecuting
+        (
+            ActionExecutingContext context
+        )
         {
             if (context.ModelState.IsValid)
             {
@@ -24,9 +27,10 @@ namespace Gunnsoft.Api.Filters
 
             if (validationErrors.Any())
             {
-                var logger =
-                    (ILogger<ValidateModelStateAttribute>)context.HttpContext.RequestServices.GetService(
-                        typeof(ILogger<ValidateModelStateAttribute>));
+                var logger = (ILogger<ValidateModelStateAttribute>)context.HttpContext.RequestServices.GetService
+                (
+                    typeof(ILogger<ValidateModelStateAttribute>)
+                );
 
                 logger.LogInformation
                 (
@@ -35,9 +39,14 @@ namespace Gunnsoft.Api.Filters
                 );
             }
 
-            var response = validationErrors.Any() ? new ValidationFailedResponse(validationErrors) : null;
+            var response = validationErrors.Any()
+                ? new ValidationFailedResponse(validationErrors)
+                : null;
 
-            context.Result = new BadRequestObjectResult(response);
+            context.Result = new BadRequestObjectResult
+            (
+                response
+            );
         }
     }
 }

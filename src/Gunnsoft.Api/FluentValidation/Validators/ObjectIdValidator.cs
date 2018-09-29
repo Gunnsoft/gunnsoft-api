@@ -10,11 +10,15 @@ namespace Gunnsoft.Api.FluentValidation.Validators
         {
         }
 
-        protected override bool IsValid(PropertyValidatorContext context)
+        protected override bool IsValid
+        (
+            PropertyValidatorContext context
+        )
         {
             var value = context.PropertyValue;
 
-            return value != null && ObjectId.TryParse(value.ToString(), out ObjectId _);
+            return value != null
+                && ObjectId.TryParse(value.ToString(), out ObjectId _);
         }
     }
 }

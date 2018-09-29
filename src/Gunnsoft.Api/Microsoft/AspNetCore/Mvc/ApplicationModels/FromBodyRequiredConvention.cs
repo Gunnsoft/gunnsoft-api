@@ -6,7 +6,10 @@ namespace Microsoft.AspNetCore.Mvc.ApplicationModels
 {
     public class FromBodyRequiredConvention : IActionModelConvention
     {
-        public void Apply(ActionModel action)
+        public void Apply
+        (
+            ActionModel action
+        )
         {
             var parameterName = action.Parameters
                 .Where(p => p.BindingInfo?.BindingSource.CanAcceptDataFrom(BindingSource.Body) ?? false)
@@ -23,12 +26,18 @@ namespace Microsoft.AspNetCore.Mvc.ApplicationModels
         {
             private readonly string _parameterName;
 
-            public FromBodyRequiredActionFilter(string parameterName)
+            public FromBodyRequiredActionFilter
+            (
+                string parameterName
+            )
             {
                 _parameterName = parameterName;
             }
 
-            public void OnActionExecuting(ActionExecutingContext context)
+            public void OnActionExecuting
+            (
+                ActionExecutingContext context
+            )
             {
                 context.ActionArguments.TryGetValue(_parameterName, out var value);
 
@@ -40,7 +49,10 @@ namespace Microsoft.AspNetCore.Mvc.ApplicationModels
                 context.Result = new StatusCodeResult(411);
             }
 
-            public void OnActionExecuted(ActionExecutedContext context)
+            public void OnActionExecuted
+            (
+                ActionExecutedContext context
+            )
             {
             }
         }

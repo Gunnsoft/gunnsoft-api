@@ -7,16 +7,32 @@ namespace Gunnsoft.Api.Versioning
 {
     public class AcceptHeaderApiVersionReader : IApiVersionReader
     {
-        private static readonly Regex s_versionRegex = new Regex(@"^application\/vnd\.stubbl.v(\d+)\+json$");
+        private readonly Regex _versionRegex;
 
-        public void AddParameters(IApiVersionParameterDescriptionContext context)
+        public AcceptHeaderApiVersionReader
+        (
+            string apiName
+        )
+        {
+            _versionRegex = new Regex($@"^application\/vnd\.{apiName}.v(\d+)\+json$");
+        }
+
+        public void AddParameters
+        (
+            IApiVersionParameterDescriptionContext context
+        )
         {
         }
 
-        public string Read(HttpRequest request)
+        public string Read
+        (
+            HttpRequest request
+        )
         {
-            var acceptHeader = request.Headers.ContainsKey("Accept") ? request.Headers["Accept"].First() : "";
-            var match = s_versionRegex.Match(acceptHeader);
+            var acceptHeader = request.Headers.ContainsKey("Accept")
+                ? request.Headers["Accept"].First()
+                : "";
+            var match = _versionRegex.Match(acceptHeader);
 
             if (!match.Success)
             {

@@ -4,7 +4,10 @@ namespace Gunnsoft.Api.Models.Exception.Version1
 {
     public class Exception
     {
-        public Exception(System.Exception exception)
+        public Exception
+        (
+            System.Exception exception
+        )
         {
             Message = exception.Message;
             StackTrace = exception.StackTrace;

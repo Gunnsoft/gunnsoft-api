@@ -3,11 +3,19 @@
     public class ErrorResponse
     {
         public ErrorResponse()
-            : this("UnexpectedError", "An unexpected error has occurred.")
+            : this
+            (
+                "UnexpectedError",
+                "An unexpected error has occurred."
+            )
         {
         }
 
-        public ErrorResponse(string errorCode, string errorMessage)
+        public ErrorResponse
+        (
+            string errorCode,
+            string errorMessage
+        )
         {
             ErrorCode = errorCode;
             ErrorMessage = errorMessage;

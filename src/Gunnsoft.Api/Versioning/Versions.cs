@@ -16,9 +16,13 @@ namespace Gunnsoft.Api.Versioning
 
         public static uint Latest { get; set; }
 
-        public static bool IsInVersionedNamespace(Type type)
+        public static bool IsInVersionedNamespace
+        (
+            Type type
+        )
         {
-            return !string.IsNullOrWhiteSpace(type?.Namespace) && s_versionRegex.IsMatch(type.Namespace);
+            return !string.IsNullOrWhiteSpace(type?.Namespace)
+                && s_versionRegex.IsMatch(type.Namespace);
         }
 
         public static int? GetVersionFromNamespace(Type type)
@@ -28,7 +32,10 @@ namespace Gunnsoft.Api.Versioning
                 return null;
             }
 
-            return int.Parse(s_versionRegex.Match(type.Namespace).Groups[1].Value);
+            return int.Parse
+            (
+                s_versionRegex.Match(type.Namespace).Groups[1].Value
+            );
         }
     }
 }

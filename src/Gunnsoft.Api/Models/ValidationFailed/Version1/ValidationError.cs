@@ -2,7 +2,11 @@ namespace Gunnsoft.Api.Models.ValidationFailed.Version1
 {
     public class ValidationError
     {
-        public ValidationError(string propertyName, string errorMessage)
+        public ValidationError
+        (
+            string propertyName,
+            string errorMessage
+        )
         {
             PropertyName = propertyName;
             ErrorMessage = errorMessage;

@@ -5,7 +5,11 @@ namespace Swashbuckle.AspNetCore.SwaggerGen
 {
     public class SwaggerDefaultValuesOperationFilter : IOperationFilter
     {
-        public void Apply(Operation operation, OperationFilterContext context)
+        public void Apply
+        (
+            Operation operation,
+            OperationFilterContext context
+        )
         {
             if (operation.Parameters == null)
             {

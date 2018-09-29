@@ -28,8 +28,13 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
             s_exceptionHandlerInterfaceType = typeof(IExceptionHandler<>);
         }
 
-        public JsonExceptionsMiddleware(RequestDelegate next, IComponentContext componentContext,
-            IHostingEnvironment hostingEnvironment, ILogger<JsonExceptionsMiddleware> logger)
+        public JsonExceptionsMiddleware
+        (
+            RequestDelegate next,
+            IComponentContext componentContext,
+            IHostingEnvironment hostingEnvironment,
+            ILogger<JsonExceptionsMiddleware> logger
+        )
         {
             _next = next;
             _componentContext = componentContext;
@@ -37,7 +42,10 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
             _logger = logger;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke
+        (
+            HttpContext context
+        )
         {
             try
             {
@@ -70,7 +78,11 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
             }
         }
 
-        private async Task HandleException(HttpContext context, Exception originalException)
+        private async Task HandleException
+        (
+            HttpContext context,
+            Exception originalException
+        )
         {
             if (context.Response.HasStarted)
             {
@@ -89,7 +101,10 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
 
             context.Response.Clear();
 
-            var exceptionHandlerType = s_exceptionHandlerInterfaceType.MakeGenericType(originalException.GetType());
+            var exceptionHandlerType = s_exceptionHandlerInterfaceType.MakeGenericType
+            (
+                originalException.GetType()
+            );
             dynamic exceptionHandler;
 
             try
@@ -146,8 +161,12 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                         new Models.Exception.Version1.Exception(exception)
                     );
 
-                    await context.Response.WriteJsonAsync(HttpStatusCode.InternalServerError, response,
-                        JsonConstants.JsonSerializerSettings);
+                    await context.Response.WriteJsonAsync
+                    (
+                        HttpStatusCode.InternalServerError,
+                        response,
+                        JsonConstants.JsonSerializerSettings
+                    );
                 }
                 else
                 {
@@ -156,7 +175,11 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
             }
         }
 
-        private async Task HandleUsingDefaultExceptionHandler(HttpContext context, Exception originalException)
+        private async Task HandleUsingDefaultExceptionHandler
+        (
+            HttpContext context,
+            Exception originalException
+        )
         {
             var originalExceptionName = originalException.GetType().FullName;
 
@@ -251,8 +274,12 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                         new Models.Exception.Version1.Exception(exception)
                     );
 
-                    await context.Response.WriteJsonAsync(HttpStatusCode.InternalServerError, response,
-                        JsonConstants.JsonSerializerSettings);
+                    await context.Response.WriteJsonAsync
+                    (
+                        HttpStatusCode.InternalServerError,
+                        response,
+                        JsonConstants.JsonSerializerSettings
+                    );
                 }
                 else
                 {

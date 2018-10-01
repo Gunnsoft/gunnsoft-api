@@ -7,7 +7,11 @@ namespace Swashbuckle.AspNetCore.SwaggerGen
 {
     public class SubjectHeaderOperationFilter : IOperationFilter
     {
-        public void Apply(Operation operation, OperationFilterContext context)
+        public void Apply
+        (
+            Operation operation,
+            OperationFilterContext context
+        )
         {
             if (context.ApiDescription.ControllerAttributes().OfType<AllowAnonymousAttribute>().Any()
                 || context.ApiDescription.ActionAttributes().OfType<AllowAnonymousAttribute>().Any())

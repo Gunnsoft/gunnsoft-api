@@ -10,24 +10,26 @@ namespace Gunnsoft.Api.Middleware.SubjectEnricher
     public class SubjectEnricherMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IReadOnlyCollection<ISubjectAccessor> _subAccessors;
+        private readonly IReadOnlyCollection<ISubjectAccessor> _subjectAccessors;
 
         public SubjectEnricherMiddleware
         (
             RequestDelegate next,
-            IReadOnlyCollection<ISubjectAccessor> subAccessors
+            IReadOnlyCollection<ISubjectAccessor> subjectAccessors
         )
         {
             _next = next;
-            _subAccessors = subAccessors;
+            _subjectAccessors = subjectAccessors;
         }
+
+        public IReadOnlyCollection<ISubjectAccessor> SubjectAccessors => _subjectAccessors;
 
         public async Task Invoke
         (
             HttpContext context
         )
         {
-            using (LogContext.PushProperty("Subject", _subAccessors.FirstOrDefault(sa => sa != null)?.Subject))
+            using (LogContext.PushProperty("Subject", _subjectAccessors.FirstOrDefault(sa => sa != null)?.Subject))
             {
                 await _next(context);
             }

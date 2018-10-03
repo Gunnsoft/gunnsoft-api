@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -203,11 +202,11 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                 );
             }
 
-            IReadOnlyCollection<IDefaultExceptionHandler> defaultExceptionHandlers;
+            IDefaultExceptionHandler defaultExceptionHandler;
 
             try
             {
-                defaultExceptionHandlers = _componentContext.Resolve<IReadOnlyCollection<IDefaultExceptionHandler>>();
+                defaultExceptionHandler = _componentContext.Resolve<IDefaultExceptionHandler>();
             }
             catch (Exception exception)
             {
@@ -245,8 +244,7 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
 
             try
             {
-                await defaultExceptionHandlers.Last()
-                    .HandleAsync(context, originalException);
+                await defaultExceptionHandler.HandleAsync(context, originalException);
             }
             catch (Exception exception)
             {

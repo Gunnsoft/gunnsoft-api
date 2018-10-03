@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using Autofac;
-using Gunnsoft.Api.Versioning;
 
 namespace Gunnsoft.Api.ExceptionHandlers
 {
@@ -26,9 +25,8 @@ namespace Gunnsoft.Api.ExceptionHandlers
                     .SingleInstance();
 
                 extended.RegisterAssemblyTypes(assembly)
-                    .Where(t => typeof(IDefaultExceptionHandler).IsAssignableFrom(t) &&
-                                Versions.IsInVersionedNamespace(t))
-                    .Keyed<IDefaultExceptionHandler>(t => Versions.GetVersionFromNamespace(t))
+                    .Where(t => typeof(IDefaultExceptionHandler).IsAssignableFrom(t))
+                    .As<IDefaultExceptionHandler>()
                     .SingleInstance();
             }
 

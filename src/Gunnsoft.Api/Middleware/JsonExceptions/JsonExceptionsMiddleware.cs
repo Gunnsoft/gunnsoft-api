@@ -204,13 +204,11 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                 );
             }
 
-            var version = context.GetRequestedApiVersion()?.MajorVersion ?? (int) Versions.Latest;
-
             IDefaultExceptionHandler defaultExceptionHandler;
 
             try
             {
-                defaultExceptionHandler = _componentContext.ResolveVersioned<IDefaultExceptionHandler>(version);
+                defaultExceptionHandler = _componentContext.Resolve<IDefaultExceptionHandler>();
             }
             catch (Exception exception)
             {
@@ -223,8 +221,7 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                     exceptionName,
                     exception.Message,
                     originalExceptionName,
-                    originalException.Message,
-                    version
+                    originalException.Message
                 );
 
                 if (_hostingEnvironment.IsDevelopment())
@@ -232,7 +229,7 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                     var response = new ExceptionResponse
                     (
                         "DefaultExceptionHandlerNotRegistered",
-                        $"Exception {exceptionName} thrown with message {exception.Message} when resolving default exception handler for exception {originalExceptionName} with message {originalException.Message} for version {version}",
+                        $"Exception {exceptionName} thrown with message {exception.Message} when resolving default exception handler for exception {originalExceptionName} with message {originalException.Message}",
                         new Models.Exception.Version1.Exception(exception)
                     );
 

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using Gunnsoft.Api.Middleware.SecureRequests;
-using Gunnsoft.Api.Models.InsecureRequest.Version1;
+using Gunnsoft.Api.Models.InsecureRequest;
 using Microsoft.AspNetCore.Http;
 
 namespace Gunnsoft.Api.ExceptionHandlers

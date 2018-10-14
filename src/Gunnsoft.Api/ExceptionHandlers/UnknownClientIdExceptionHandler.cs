@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using Gunnsoft.Api.Exceptions.UnknownClientId.Version1;
-using Gunnsoft.Api.Models.UnknownClientId.Version1;
+using Gunnsoft.Api.Exceptions.UnknownClientId;
+using Gunnsoft.Api.Models.UnknownClientId;
 using Microsoft.AspNetCore.Http;
 
 namespace Gunnsoft.Api.ExceptionHandlers

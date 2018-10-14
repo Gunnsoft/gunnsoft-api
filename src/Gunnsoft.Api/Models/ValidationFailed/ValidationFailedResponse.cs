@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Gunnsoft.Api.Models.Error.Version1;
+using Gunnsoft.Api.Models.Error;
 
-namespace Gunnsoft.Api.Models.ValidationFailed.Version1
+namespace Gunnsoft.Api.Models.ValidationFailed
 {
     public class ValidationFailedResponse : ErrorResponse
     {

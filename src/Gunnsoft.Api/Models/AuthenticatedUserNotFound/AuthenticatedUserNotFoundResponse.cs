@@ -1,6 +1,6 @@
-﻿using Gunnsoft.Api.Models.Error.Version1;
+﻿using Gunnsoft.Api.Models.Error;
 
-namespace Gunnsoft.Api.Models.AuthenticatedUserNotFound.Version1
+namespace Gunnsoft.Api.Models.AuthenticatedUserNotFound
 {
     public class AuthenticatedUserNotFoundResponse : ErrorResponse
     {

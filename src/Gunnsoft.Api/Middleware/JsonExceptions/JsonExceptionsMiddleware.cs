@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Gunnsoft.Api.ExceptionHandlers;
-using Gunnsoft.Api.Models.Exception.Version1;
+using Gunnsoft.Api.Models.Exception;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -156,7 +156,7 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                     (
                         "ExceptionHandlerThrewException",
                         $"Exception {exceptionName} thrown with message {exception.Message} when handling exception {originalExceptionName} with message {originalException.Message}",
-                        new Models.Exception.Version1.Exception(exception)
+                        new Models.Exception.Exception(exception)
                     );
 
                     await context.Response.WriteJsonAsync
@@ -215,7 +215,7 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                 _logger.LogError
                 (
                     exception,
-                    "Exception {ExceptionName} thrown with message {ExceptionMessage} when resolving default exception handler for exception {OriginalExceptionName} with message {OriginalExceptionMessage} for version {Version}",
+                    "Exception {ExceptionName} thrown with message {ExceptionMessage} when resolving default exception handler for exception {OriginalExceptionName} with message {OriginalExceptionMessage{",
                     exceptionName,
                     exception.Message,
                     originalExceptionName,
@@ -228,7 +228,7 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                     (
                         "DefaultExceptionHandlerNotRegistered",
                         $"Exception {exceptionName} thrown with message {exception.Message} when resolving default exception handler for exception {originalExceptionName} with message {originalException.Message}",
-                        new Models.Exception.Version1.Exception(exception)
+                        new Models.Exception.Exception(exception)
                     );
 
                     await context.Response.WriteJsonAsync(HttpStatusCode.InternalServerError, response,
@@ -266,7 +266,7 @@ namespace Gunnsoft.Api.Middleware.JsonExceptions
                     (
                         "DefaultExceptionHandlerThrewException",
                         $"Exception {exceptionName} thrown with message {exception.Message} when handling exception {originalExceptionName} with message {originalException.Message}",
-                        new Models.Exception.Version1.Exception(exception)
+                        new Models.Exception.Exception(exception)
                     );
 
                     await context.Response.WriteJsonAsync

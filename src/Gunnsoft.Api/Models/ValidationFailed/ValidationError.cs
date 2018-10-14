@@ -1,4 +1,4 @@
-namespace Gunnsoft.Api.Models.ValidationFailed.Version1
+namespace Gunnsoft.Api.Models.ValidationFailed
 {
     public class ValidationError
     {

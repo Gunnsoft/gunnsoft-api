@@ -1,6 +1,6 @@
 using System;
 
-namespace Gunnsoft.Api.Exceptions.AuthenticatedUserNotFound.Version1
+namespace Gunnsoft.Api.Exceptions.AuthenticatedUserNotFound
 {
     public class AuthenticatedUserNotFoundException : Exception
     {

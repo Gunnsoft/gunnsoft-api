@@ -1,6 +1,6 @@
 using System;
 
-namespace Gunnsoft.Api.Models.Exception.Version1
+namespace Gunnsoft.Api.Models.Exception
 {
     public class Exception
     {

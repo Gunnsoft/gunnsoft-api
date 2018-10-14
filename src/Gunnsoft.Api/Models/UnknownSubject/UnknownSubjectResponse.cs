@@ -1,7 +1,7 @@
-﻿using Gunnsoft.Api.Models.Error.Version1;
+﻿using Gunnsoft.Api.Models.Error;
 using IdentityModel;
 
-namespace Gunnsoft.Api.Models.UnknownSubject.Version1
+namespace Gunnsoft.Api.Models.UnknownSubject
 {
     public class UnknownSubjectResponse : ErrorResponse
     {

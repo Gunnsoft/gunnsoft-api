@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using Gunnsoft.Api.Exceptions.AuthenticatedUserNotFound.Version1;
-using Gunnsoft.Api.Models.AuthenticatedUserNotFound.Version1;
+using Gunnsoft.Api.Exceptions.AuthenticatedUserNotFound;
+using Gunnsoft.Api.Models.AuthenticatedUserNotFound;
 using Microsoft.AspNetCore.Http;
 
-namespace Gunnsoft.Api.ExceptionHandlers.AuthenticatedUserNotFound.Version1
+namespace Gunnsoft.Api.ExceptionHandlers.AuthenticatedUserNotFound
 {
     public class AuthenticatedUserNotFoundExceptionHandler
         : IExceptionHandler<AuthenticatedUserNotFoundException>

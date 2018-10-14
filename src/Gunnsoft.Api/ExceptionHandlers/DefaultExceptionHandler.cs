@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using Gunnsoft.Api.Models.Error.Version1;
-using Gunnsoft.Api.Models.Exception.Version1;
+using Gunnsoft.Api.Models.Error;
+using Gunnsoft.Api.Models.Exception;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Exception = System.Exception;
@@ -32,7 +32,7 @@ namespace Gunnsoft.Api.ExceptionHandlers
             {
                 response = new ExceptionResponse
                 (
-                    new Models.Exception.Version1.Exception(exception)
+                    new Models.Exception.Exception(exception)
                 );
             }
             else

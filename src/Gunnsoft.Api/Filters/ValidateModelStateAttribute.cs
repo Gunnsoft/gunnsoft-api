@@ -1,5 +1,5 @@
 using System.Linq;
-using Gunnsoft.Api.Models.ValidationFailed.Version1;
+using Gunnsoft.Api.Models.ValidationFailed;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;

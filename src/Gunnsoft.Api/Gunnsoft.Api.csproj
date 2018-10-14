@@ -32,4 +32,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\AuthenticatedUserNotFound\Version1\" />
+    <Folder Include="Exceptions\UnknownClientId\Version1\" />
+    <Folder Include="Exceptions\UnknownSubject\Version1\" />
+  </ItemGroup>
+
 </Project>

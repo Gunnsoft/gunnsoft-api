@@ -1,4 +1,4 @@
-﻿namespace Gunnsoft.Api.Models.Error.Version1
+﻿namespace Gunnsoft.Api.Models.Error
 {
     public class ErrorResponse
     {

@@ -1,6 +1,6 @@
-﻿using Gunnsoft.Api.Models.Error.Version1;
+﻿using Gunnsoft.Api.Models.Error;
 
-namespace Gunnsoft.Api.Models.InsecureRequest.Version1
+namespace Gunnsoft.Api.Models.InsecureRequest
 {
     public class InsecureRequestResponse : ErrorResponse
     {
